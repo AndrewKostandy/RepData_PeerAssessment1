@@ -32,7 +32,7 @@ daysum<-aggregate(steps ~ date, data=thedata, FUN=sum)
 
 #### Q2 Make a histogram of the total number of steps taken each day
 
-```{r echo=TRUE}
+```{r Plot1, echo=TRUE}
 library(ggplot2)
 plot1<-qplot(date, data=daysum, geom="bar", binwidth = 1,
       weight=steps, fill="red", main="Total Number of Steps by Date",
@@ -57,7 +57,7 @@ datamedian<-median(daysum$steps) ## Calculates the Median
 
 Here I'll calculate the mean of steps by interval and plot it.
 
-```{r echo=TRUE}
+```{r plot2, echo=TRUE}
 intervalmeans<-aggregate(steps ~ interval, data=thedata, FUN=mean) ## Calculating Mean of Steps by Interval
 library(lattice)
 plot2<-xyplot (steps ~ interval, data=intervalmeans, type="l",
@@ -110,7 +110,7 @@ for (i in 1:nrow(imputeddata)){
 
 Let me start by drawing a histogram of the total number of steps taken each day after imputing the missing values.
 
-```{r echo=TRUE}
+```{r plot3, echo=TRUE}
 impdaysum<-aggregate(steps ~ date, data=imputeddata, FUN=sum) ## Calculating the sum of steps by date
 plot3<-qplot(date, data=impdaysum, geom="bar", binwidth = 1,
       weight=steps, fill="red", main="Total Number of Steps by Date",
@@ -155,7 +155,7 @@ imputeddata$daytype<-as.factor(imputeddata$daytype) ## Making daytype a factor a
 
 I will make the panel plot and see if there is anything interesting.
 
-```{r echo=TRUE}
+```{r plot4, echo=TRUE}
 impintervalmeans<-aggregate(steps ~ interval + daytype, data=imputeddata, FUN=mean) ## Calculating the mean of steps by interval and day type
 plot4<-xyplot (steps ~ interval | daytype, data=impintervalmeans, type="l", layout=c(1,2),
         main="Average Number of Steps Taken in 5-minute Intervals \nAveraged Across All Days by Day Type",

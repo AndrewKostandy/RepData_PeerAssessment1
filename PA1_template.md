@@ -45,7 +45,7 @@ plot1<-plot1+theme(legend.position = "none")
 print(plot1)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+![plot of chunk Plot1](figure/Plot1-1.png) 
 
 #### Q3 Calculate and report the mean and median of the total number of steps taken per day
 
@@ -74,7 +74,7 @@ plot2<-xyplot (steps ~ interval, data=intervalmeans, type="l",
 print(plot2)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+![plot of chunk plot2](figure/plot2-1.png) 
 
 
 #### Q2 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -133,7 +133,7 @@ plot3<-plot3+theme(legend.position = "none")
 print(plot3)
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
+![plot of chunk plot3](figure/plot3-1.png) 
 
 Now I'll calculate the mean and median total number of steps taken per day after imputing the missing values.
 
@@ -182,7 +182,7 @@ plot4<-xyplot (steps ~ interval | daytype, data=impintervalmeans, type="l", layo
 print(plot4)
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
+![plot of chunk plot4](figure/plot4-1.png) 
 
 **Observations:**
 
