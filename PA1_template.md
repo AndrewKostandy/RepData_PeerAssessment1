@@ -11,12 +11,14 @@ output:
 Let's start by reading the data first.  
 The raw data file activity.csv should be in your working directory.
 
-```{r echo=TRUE}
+
+```r
 thedata<-read.csv("activity.csv")
 ```
 
 Then I'll convert the date column into a variable of type date
-```{r echo=TRUE}
+
+```r
 thedata$date<-as.Date(thedata$date,format="%Y-%m-%d")
 ```
 
@@ -26,13 +28,15 @@ thedata$date<-as.Date(thedata$date,format="%Y-%m-%d")
 
 Here I'll calculate the total number of steps taken per day
 
-```{r echo=TRUE}
+
+```r
 daysum<-aggregate(steps ~ date, data=thedata, FUN=sum)
 ```
 
 #### Q2 Make a histogram of the total number of steps taken each day
 
-```{r echo=TRUE}
+
+```r
 library(ggplot2)
 plot1<-qplot(date, data=daysum, geom="bar", binwidth = 1,
       weight=steps, fill="red", main="Total Number of Steps by Date",
@@ -41,15 +45,18 @@ plot1<-plot1+theme(legend.position = "none")
 print(plot1)
 ```
 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+
 #### Q3 Calculate and report the mean and median of the total number of steps taken per day
 
-```{r echo=TRUE}
+
+```r
 datamean<-mean(daysum$steps) ## Calculates the Mean
 datamedian<-median(daysum$steps) ## Calculates the Median
 ```
 
-- The mean total number of steps taken per day is **`r sprintf("%.2f", datamean)`**.  
-- The median total number of steps taken per day is **`r datamedian`**.
+- The mean total number of steps taken per day is **10766.19**.  
+- The median total number of steps taken per day is **10765**.
 
 ## What is the average daily activity pattern?
 
@@ -57,7 +64,8 @@ datamedian<-median(daysum$steps) ## Calculates the Median
 
 Here I'll calculate the mean of steps by interval and plot it.
 
-```{r echo=TRUE}
+
+```r
 intervalmeans<-aggregate(steps ~ interval, data=thedata, FUN=mean) ## Calculating Mean of Steps by Interval
 library(lattice)
 plot2<-xyplot (steps ~ interval, data=intervalmeans, type="l",
@@ -66,17 +74,20 @@ plot2<-xyplot (steps ~ interval, data=intervalmeans, type="l",
 print(plot2)
 ```
 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+
 
 #### Q2 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 To find out the 5 minute interval with the maximum number of steps on average across all days I'll use the below code.
 
-```{r echo=TRUE}
+
+```r
 highestinterval<-intervalmeans[which.max(intervalmeans$steps),1] ## Gives the Interval with the highest Avg Number of Steps
 highestnumsteps<-intervalmeans[which.max(intervalmeans$steps),2] ## Gives the Highest Average Number of Steps in a 5-minute Interval
 ```
 
-The interval with the maximum number of steps on average across all days was **`r highestinterval`** and the average number of steps in that interval was about **`r round(highestnumsteps,2)`**.
+The interval with the maximum number of steps on average across all days was **835** and the average number of steps in that interval was about **206.17**.
 
 ## Imputing missing values
 
@@ -84,10 +95,11 @@ The interval with the maximum number of steps on average across all days was **`
 
 I'll start by calculating the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
-```{r echo=TRUE}
+
+```r
 missingvalues<-sum(is.na(thedata$steps))
 ```
-The total number of missing values in the dataset is **`r missingvalues`**.
+The total number of missing values in the dataset is **2304**.
 
 #### Q2 Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
@@ -97,7 +109,8 @@ After looking at the data, I have decided to take the mean for a 5 minute interv
 
 Below I create a new dataset that is equal to the original dataset but I use the interval means data generated earlier to fill in the missing values based on those interval means.
 
-```{r echo=TRUE}
+
+```r
 imputeddata<-thedata
 for (i in 1:nrow(imputeddata)){
         if (is.na(imputeddata[i,1])){
@@ -110,7 +123,8 @@ for (i in 1:nrow(imputeddata)){
 
 Let me start by drawing a histogram of the total number of steps taken each day after imputing the missing values.
 
-```{r echo=TRUE}
+
+```r
 impdaysum<-aggregate(steps ~ date, data=imputeddata, FUN=sum) ## Calculating the sum of steps by date
 plot3<-qplot(date, data=impdaysum, geom="bar", binwidth = 1,
       weight=steps, fill="red", main="Total Number of Steps by Date",
@@ -119,16 +133,19 @@ plot3<-plot3+theme(legend.position = "none")
 print(plot3)
 ```
 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
+
 Now I'll calculate the mean and median total number of steps taken per day after imputing the missing values.
 
-```{r echo=TRUE}
+
+```r
 impdatamean<-mean(impdaysum$steps) ## Calculating Mean
 impdatamedian<-median(impdaysum$steps) ## Calculating Median
 ```
 
-The mean total number of steps taken per day **after** imputing the missing values is about **`r sprintf("%.2f", impdatamean)`** and the median is about **`r sprintf("%.2f", impdatamedian)`**.
+The mean total number of steps taken per day **after** imputing the missing values is about **10766.19** and the median is about **10766.19**.
 
-If you remember, the mean total number of steps taken per day **before** imputing the missing values was about **`r sprintf("%.2f", datamean)`** and the median was **`r datamedian`**.
+If you remember, the mean total number of steps taken per day **before** imputing the missing values was about **10766.19** and the median was **10765**.
 
 As you can see, the mean value did not change at all after imputing the missing values and the median value has only slightly increased.
 
@@ -140,7 +157,8 @@ This means that the impact of imputing missing values on the estimates of the to
 
 Below I create a new variable and set it to weekday or weekend appropriately and make it a factor variable
 
-```{r echo=TRUE}
+
+```r
 imputeddata["daytype"] <- NA ## creating a new variable in the dataset
 for (i in 1:nrow(imputeddata)){ ## Going through the rows and setting the variable to weekday or weekend as per the date
         if (weekdays(imputeddata[i,2])=="Saturday" || weekdays(imputeddata[i,2])=="Sunday"){
@@ -155,13 +173,16 @@ imputeddata$daytype<-as.factor(imputeddata$daytype) ## Making daytype a factor a
 
 I will make the panel plot and see if there is anything interesting.
 
-```{r echo=TRUE}
+
+```r
 impintervalmeans<-aggregate(steps ~ interval + daytype, data=imputeddata, FUN=mean) ## Calculating the mean of steps by interval and day type
 plot4<-xyplot (steps ~ interval | daytype, data=impintervalmeans, type="l", layout=c(1,2),
         main="Average Number of Steps Taken in 5-minute Intervals \nAveraged Across All Days by Day Type",
         xlab="Interval", ylab="Number of Steps")
 print(plot4)
 ```
+
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
 
 **Observations:**
 
