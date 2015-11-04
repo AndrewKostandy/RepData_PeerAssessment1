@@ -225,7 +225,10 @@ The raw data file activity.csv should be in your working directory.</p>
 
 <h4>Q2 Make a histogram of the total number of steps taken each day</h4>
 
-<pre><code class="r">library(ggplot2)
+<p>Below is a plot showing the total number of steps taken each day.</p>
+
+<pre><code class="r">## Draws the plot
+library(ggplot2)
 plot1&lt;-qplot(date, data=daysum, geom=&quot;bar&quot;, binwidth = 1,
       weight=steps, fill=&quot;red&quot;, main=&quot;Total Number of Steps by Date&quot;,
       xlab=&quot;Date&quot;, ylab = &quot;Total Number os Steps&quot;)
@@ -252,7 +255,9 @@ datamedian&lt;-median(daysum$steps) ## Calculates the Median
 
 <p>Here I&#39;ll calculate the mean of steps by interval and plot it.</p>
 
-<pre><code class="r">intervalmeans&lt;-aggregate(steps ~ interval, data=thedata, FUN=mean) ## Calculating Mean of Steps by Interval
+<pre><code class="r">## Calculating Mean of Steps by Interval
+intervalmeans&lt;-aggregate(steps ~ interval, data=thedata, FUN=mean)
+## Draws the plot
 library(lattice)
 plot2&lt;-xyplot (steps ~ interval, data=intervalmeans, type=&quot;l&quot;,
                main=&quot;Average Number of Steps Taken in 5-minute Intervals \nAveraged Across All Days&quot;,
@@ -266,8 +271,10 @@ print(plot2)
 
 <p>To find out the 5 minute interval with the maximum number of steps on average across all days I&#39;ll use the below code.</p>
 
-<pre><code class="r">highestinterval&lt;-intervalmeans[which.max(intervalmeans$steps),1] ## Gives the Interval with the highest Avg Number of Steps
-highestnumsteps&lt;-intervalmeans[which.max(intervalmeans$steps),2] ## Gives the Highest Average Number of Steps in a 5-minute Interval
+<pre><code class="r">## Gives the Interval with the highest Avg Number of Steps
+highestinterval&lt;-intervalmeans[which.max(intervalmeans$steps),1]
+## Gives the Highest Average Number of Steps in a 5-minute Interval
+highestnumsteps&lt;-intervalmeans[which.max(intervalmeans$steps),2]
 </code></pre>
 
 <p>The interval with the maximum number of steps on average across all days was <strong>835</strong> and the average number of steps in that interval was about <strong>206.17</strong>.</p>
@@ -304,6 +311,7 @@ for (i in 1:nrow(imputeddata)){
 <p>Let me start by drawing a histogram of the total number of steps taken each day after imputing the missing values.</p>
 
 <pre><code class="r">impdaysum&lt;-aggregate(steps ~ date, data=imputeddata, FUN=sum) ## Calculating the sum of steps by date
+## Draws the plot
 plot3&lt;-qplot(date, data=impdaysum, geom=&quot;bar&quot;, binwidth = 1,
       weight=steps, fill=&quot;red&quot;, main=&quot;Total Number of Steps by Date&quot;,
       xlab=&quot;Date&quot;, ylab = &quot;Total Number os Steps&quot;)
@@ -334,7 +342,8 @@ impdatamedian&lt;-median(impdaysum$steps) ## Calculating Median
 <p>Below I create a new variable and set it to weekday or weekend appropriately and make it a factor variable</p>
 
 <pre><code class="r">imputeddata[&quot;daytype&quot;] &lt;- NA ## creating a new variable in the dataset
-for (i in 1:nrow(imputeddata)){ ## Going through the rows and setting the variable to weekday or weekend as per the date
+## Going through the rows and setting the variable to weekday or weekend as per the date
+for (i in 1:nrow(imputeddata)){
         if (weekdays(imputeddata[i,2])==&quot;Saturday&quot; || weekdays(imputeddata[i,2])==&quot;Sunday&quot;){
                 imputeddata[i,4]&lt;-&quot;weekend&quot;
         }
@@ -347,7 +356,9 @@ imputeddata$daytype&lt;-as.factor(imputeddata$daytype) ## Making daytype a facto
 
 <p>I will make the panel plot and see if there is anything interesting.</p>
 
-<pre><code class="r">impintervalmeans&lt;-aggregate(steps ~ interval + daytype, data=imputeddata, FUN=mean) ## Calculating the mean of steps by interval and day type
+<pre><code class="r">## Calculating the mean of steps by interval and day type
+impintervalmeans&lt;-aggregate(steps ~ interval + daytype, data=imputeddata, FUN=mean) 
+## Draws the plot
 plot4&lt;-xyplot (steps ~ interval | daytype, data=impintervalmeans, type=&quot;l&quot;, layout=c(1,2),
         main=&quot;Average Number of Steps Taken in 5-minute Intervals \nAveraged Across All Days by Day Type&quot;,
         xlab=&quot;Interval&quot;, ylab=&quot;Number of Steps&quot;)

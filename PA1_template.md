@@ -35,8 +35,11 @@ daysum<-aggregate(steps ~ date, data=thedata, FUN=sum)
 
 #### Q2 Make a histogram of the total number of steps taken each day
 
+Below is a plot showing the total number of steps taken each day.
+
 
 ```r
+## Draws the plot
 library(ggplot2)
 plot1<-qplot(date, data=daysum, geom="bar", binwidth = 1,
       weight=steps, fill="red", main="Total Number of Steps by Date",
@@ -66,7 +69,9 @@ Here I'll calculate the mean of steps by interval and plot it.
 
 
 ```r
-intervalmeans<-aggregate(steps ~ interval, data=thedata, FUN=mean) ## Calculating Mean of Steps by Interval
+## Calculating Mean of Steps by Interval
+intervalmeans<-aggregate(steps ~ interval, data=thedata, FUN=mean)
+## Draws the plot
 library(lattice)
 plot2<-xyplot (steps ~ interval, data=intervalmeans, type="l",
                main="Average Number of Steps Taken in 5-minute Intervals \nAveraged Across All Days",
@@ -83,8 +88,10 @@ To find out the 5 minute interval with the maximum number of steps on average ac
 
 
 ```r
-highestinterval<-intervalmeans[which.max(intervalmeans$steps),1] ## Gives the Interval with the highest Avg Number of Steps
-highestnumsteps<-intervalmeans[which.max(intervalmeans$steps),2] ## Gives the Highest Average Number of Steps in a 5-minute Interval
+## Gives the Interval with the highest Avg Number of Steps
+highestinterval<-intervalmeans[which.max(intervalmeans$steps),1]
+## Gives the Highest Average Number of Steps in a 5-minute Interval
+highestnumsteps<-intervalmeans[which.max(intervalmeans$steps),2]
 ```
 
 The interval with the maximum number of steps on average across all days was **835** and the average number of steps in that interval was about **206.17**.
@@ -126,6 +133,7 @@ Let me start by drawing a histogram of the total number of steps taken each day 
 
 ```r
 impdaysum<-aggregate(steps ~ date, data=imputeddata, FUN=sum) ## Calculating the sum of steps by date
+## Draws the plot
 plot3<-qplot(date, data=impdaysum, geom="bar", binwidth = 1,
       weight=steps, fill="red", main="Total Number of Steps by Date",
       xlab="Date", ylab = "Total Number os Steps")
@@ -160,7 +168,8 @@ Below I create a new variable and set it to weekday or weekend appropriately and
 
 ```r
 imputeddata["daytype"] <- NA ## creating a new variable in the dataset
-for (i in 1:nrow(imputeddata)){ ## Going through the rows and setting the variable to weekday or weekend as per the date
+## Going through the rows and setting the variable to weekday or weekend as per the date
+for (i in 1:nrow(imputeddata)){
         if (weekdays(imputeddata[i,2])=="Saturday" || weekdays(imputeddata[i,2])=="Sunday"){
                 imputeddata[i,4]<-"weekend"
         }
@@ -175,7 +184,9 @@ I will make the panel plot and see if there is anything interesting.
 
 
 ```r
-impintervalmeans<-aggregate(steps ~ interval + daytype, data=imputeddata, FUN=mean) ## Calculating the mean of steps by interval and day type
+## Calculating the mean of steps by interval and day type
+impintervalmeans<-aggregate(steps ~ interval + daytype, data=imputeddata, FUN=mean) 
+## Draws the plot
 plot4<-xyplot (steps ~ interval | daytype, data=impintervalmeans, type="l", layout=c(1,2),
         main="Average Number of Steps Taken in 5-minute Intervals \nAveraged Across All Days by Day Type",
         xlab="Interval", ylab="Number of Steps")
