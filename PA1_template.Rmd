@@ -132,7 +132,7 @@ If you remember, the mean total number of steps taken per day **before** imputin
 
 As you can see, the mean value did not change at all after imputing the missing values and the median value has only slightly increased.
 
-This means that the impact of imputing missing values on the estimates of the total daily number of steps was not big on the central tendecnies of the steps data.
+This means that the impact of imputing missing values on the estimates of the total daily number of steps was not big on the central tendencies of the steps data.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
