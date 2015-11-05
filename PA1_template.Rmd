@@ -117,13 +117,17 @@ impdatamean<-mean(impdaysum$steps) ## Calculating Mean
 impdatamedian<-median(impdaysum$steps) ## Calculating Median
 ```
 
-The mean total number of steps taken per day **after** imputing the missing values is about **`r sprintf("%.2f", impdatamean)`** and the median is about **`r sprintf("%.2f", impdatamedian)`**.
+**After** imputing the missing data values:
+- The mean total number of steps taken per day is about **`r sprintf("%.2f", impdatamean)`**
+- The median total number of steps taken per day is about **`r sprintf("%.2f", impdatamedian)`**
 
-If you remember, the mean total number of steps taken per day **before** imputing the missing values was about **`r sprintf("%.2f", datamean)`** and the median was **`r datamedian`**.
+**Before** imputing the missing data values:
+- The mean total number of steps taken per day was about **`r sprintf("%.2f", datamean)`**
+- The median total number of steps taken per day was **`r datamedian`**
 
 As you can see, the mean value did not change at all after imputing the missing values and the median value has only slightly increased.
 
-This means that the impact of imputing missing values on the estimates of the total daily number of steps was not big on the central tendencies of the steps data.
+This means that the impact of imputing missing values on the estimates and central tendencies of the total daily number of steps was small.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
