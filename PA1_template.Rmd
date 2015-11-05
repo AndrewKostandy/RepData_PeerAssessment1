@@ -165,4 +165,4 @@ I have seen differences in activity patterns between weekdays and weekends and b
 - On weekdays there appears to be a large peak in the number of steps between the intervals 750 and 1000. It is quite higher than the same interval on weekend days.  
 - Between intervals 1000 and 1750 there seems to be higher averages of steps on weekends compared to weekdays.
 - Towards the end of the day, the averages of the number of steps at the weekend spike at around interval 2000 and then start 
-their gradual final decline while on weekdays, the spike happens at an earlier interval of the day and then start their gradual final decline.
+their gradual final decline. On weekdays however, the spike happens at an earlier interval of the day and then start their gradual final decline.
