@@ -221,11 +221,11 @@ The raw data file activity.csv should be in your working directory.</p>
 <pre><code class="r">daysum&lt;-aggregate(steps ~ date, data=thedata, FUN=sum)
 </code></pre>
 
-<p>Then, I&#39;ll make a plot showing the total number of steps taken each day.</p>
+<p>Then, I&#39;ll plot a histogram showing the total number of steps taken each day.</p>
 
 <pre><code class="r">## Draws the plot
 library(ggplot2)
-plot1&lt;-qplot(date, data=daysum, geom=&quot;bar&quot;, binwidth = 1,
+plot1&lt;-qplot(date, data=daysum, geom=&quot;histogram&quot;, binwidth = 1,
       weight=steps, fill=&quot;red&quot;, main=&quot;Total Number of Steps by Date&quot;,
       xlab=&quot;Date&quot;, ylab = &quot;Total Number os Steps&quot;)
 plot1&lt;-plot1+theme(legend.position = &quot;none&quot;)
@@ -296,7 +296,7 @@ for (i in 1:nrow(imputeddata)){
 
 <pre><code class="r">impdaysum&lt;-aggregate(steps ~ date, data=imputeddata, FUN=sum) ## Calculating the sum of steps by date
 ## Draws the plot
-plot3&lt;-qplot(date, data=impdaysum, geom=&quot;bar&quot;, binwidth = 1,
+plot3&lt;-qplot(date, data=impdaysum, geom=&quot;histogram&quot;, binwidth = 1,
       weight=steps, fill=&quot;red&quot;, main=&quot;Total Number of Steps by Date&quot;,
       xlab=&quot;Date&quot;, ylab = &quot;Total Number os Steps&quot;)
 plot3&lt;-plot3+theme(legend.position = &quot;none&quot;)
