@@ -37,9 +37,9 @@ Then, I'll plot a histogram showing the total number of steps taken each day.
 ```r
 ## Draws the plot
 library(ggplot2)
-plot1<-qplot(date, data=daysum, geom="histogram", binwidth = 1,
-      weight=steps, fill="red", main="Total Number of Steps by Date",
-      xlab="Date", ylab = "Total Number os Steps")
+plot1<-qplot(steps, data=daysum, geom="histogram", binwidth = 1000,
+      fill="red", main="Histogram of Total Number of Daily Steps",
+      xlab="Total Number of Steps", ylab = "Count")
 plot1<-plot1+theme(legend.position = "none")
 print(plot1)
 ```
@@ -117,9 +117,9 @@ Now, I'll plot a histogram of the total number of steps taken each day after imp
 ```r
 impdaysum<-aggregate(steps ~ date, data=imputeddata, FUN=sum) ## Calculating the sum of steps by date
 ## Draws the plot
-plot3<-qplot(date, data=impdaysum, geom="histogram", binwidth = 1,
-      weight=steps, fill="red", main="Total Number of Steps by Date",
-      xlab="Date", ylab = "Total Number os Steps")
+plot3<-qplot(steps, data=impdaysum, geom="histogram", binwidth = 1000,
+      fill="red", main="Histogram of Total Number of Daily Steps",
+      xlab="Total Number of Steps", ylab = "Count")
 plot3<-plot3+theme(legend.position = "none")
 print(plot3)
 ```
